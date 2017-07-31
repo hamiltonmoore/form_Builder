@@ -103,19 +103,31 @@ let fieldsContent = document.getElementById('fields');
 
 for (i = 0; i < formData.length; i++) {
   let input = document.createElement('input');
-  input.placeholder = formData[i].label;
+  let select = document.createElement('select');
+  let textarea = document.createElement('textarea');
 
   for (let property in formData[i]) {
-    let value = formData[i][property];
-    input.setAttribute(property, value);
+    if (formData[i].type === "text" || formData[i].type === "tel" || formData[i].type === "email") {
+      let value = formData[i][property];
+      input.placeholder = formData[i].label;
+      input.setAttribute(property, value);
+      fieldsContent.appendChild(input);
 
+    }
+    //inside of formData[i] we want to retreive the options 
+    else if (formData[i].type === "select") {
+      let value = formData[i][property];
+      select.placeholder = formData[i].label;
+      formData[i].options
+      select.setAttribute(property, value);
+      fieldsContent.appendChild(select);
+    }
+    else if (formData[i].type === "textarea") {
+      let value = formData[i][property];
+      textarea.placeholder = formData[i].label;
+      textarea.setAttribute(property, value)
+      fieldsContent.appendChild(textarea);
+    }
   }
-  fieldsContent.appendChild(input);
 }
 
-
-
-  //  input.setAttribute("type", value);
-  // input.setAttribute("id", value);
-  // input.setAttribute("placeholder", value);
-  // input.setAttribute("icon", value);
