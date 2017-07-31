@@ -118,7 +118,6 @@ for (i = 0; i < formData.length; i++) {
     else if (formData[i].type === "select") {
       let value = formData[i][property];
       select.placeholder = formData[i].label;
-      formData[i].options
       select.setAttribute(property, value);
       fieldsContent.appendChild(select);
     }
@@ -129,5 +128,16 @@ for (i = 0; i < formData.length; i++) {
       fieldsContent.appendChild(textarea);
     }
   }
+  if (formData[i].type === "select") {
+    let defaultOption = document.createElement("option");
+    defaultOption.textContent = "Select a Language...";
+    select.appendChild(defaultOption);
+    for (let j = 0; j < formData[i].options.length; j++) {
+      let options = document.createElement("option");
+      options.setAttribute('label', formData[i].options[j].label);
+      options.setAttribute('value', formData[i].options[j].value);
+      select.appendChild(options);
+    }
+    fieldsContent.appendChild(select);
+  }
 }
-
